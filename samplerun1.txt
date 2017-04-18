@@ -1,0 +1,64 @@
+46> frequency:start_clients(6).
+Launched 'frequency' (<0.132.15>)
+Server up at <0.132.15> with {[10,11,12,13,14],[]}
+C1           C2           C3           C4           C5           C6
+--------------------------------------------------------------------------
+                                                                 start
+                                                    start
+                                       start
+                          start
+             start
+start
+                                                                 A10
+                                       A11
+                          A12
+             A13
+atimeout
+                                                    atimeout
+                                                    end
+                                                    start
+end
+start
+                                                    no_frequency
+                                       D11
+A14
+                          D12
+                                                                 D10
+             D13
+                                                    end
+                                                    start
+                                                    A13
+                                       end
+                                       start
+                                       A10
+                                                                 end
+                                                                 start                                                              start
+                                                                 A12
+                          end
+                          start
+                                       D10
+                                                    dtimeout
+                                                    (D13)
+             end
+             start
+                          atimeout
+             A10
+D14
+                                                                 D12
+                                       end
+                                       start
+                                       A12
+end
+start
+A14
+                                                                 end
+                                                                 start
+server died                                                                 atimeout
+                                                                 end
+             atimeout
+             (D10)
+                                       atimeout
+                                       (D12)
+atimeout
+(D14)
+47>
