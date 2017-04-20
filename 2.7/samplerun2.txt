@@ -1,0 +1,29 @@
+48> frequency:start_clients(3).
+Launched 'frequency' (<0.25890.16>)
+Server up at <0.25890.16> with {[10,11,12,13,14],[]}
+C1           C2           C3
+--------------------------------------------------------------------------
+                          start
+             start
+start
+                          A10
+             A11
+atimeout
+end
+start
+A12
+             D11
+                          D10
+             end
+             start
+             A10
+D12
+                          end
+                          start
+                          A12
+end
+             atimeout
+             (D10)
+                          atimeout
+                          (D12)
+49>

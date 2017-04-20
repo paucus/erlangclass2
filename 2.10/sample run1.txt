@@ -1,0 +1,70 @@
+140> frequency:start_clients(4).
+4068 Launched 'frequency_monitor' (<0.1017.81>)
+4069 Launched 'frequency' (<0.1018.81>)
+4070 FServer up with {[10,11,12,13,14],[]}
+C1           C2           C3           C4
+--------------------------------------------------------------------------
+4071                                        start
+4072                           start
+4073              start
+4074 start
+4075                                        A10
+4076                           A11
+4077              A12
+4078 A13
+4079              D12
+4080              end
+4081              start
+4082              A12
+4083                           D11
+4084                                        D10
+4085 D13
+4086                           end
+4087                           start
+4088                           A13
+4089                                        end
+4090                                        start
+4091                                        A10
+4092              D12
+4093 end
+4094 start
+4095 A12
+4096                           D13
+4097                           end
+4098                           start
+4099                           A13
+4100              end
+4101              start
+4102              A11
+4103                                        D10
+4104 D12
+4105 Mon: FS died.----------------------------------------------      timer killed it after 15s.
+4106 Launched 'frequency' (<0.3790.81>)                               monitor restarted frequency server
+4107 FServer up with {[10,11,12,13,14],[]}                            state not kept... but FS returned frequencies as each client died.
+4108                                        end
+4109                                        start
+4110                           not_allocated
+4111                           (D13)                                  dead client, exited() returned frequency.
+4112                                        A10
+4113              not_allocated
+4114              (D11)                                               dead client, exited() returned frequency.
+4115 end
+4116 start
+4117 A11
+4118                                        D10
+4119 D11
+4120                                        end
+4121                                        start
+4122                                        A11
+4123 end
+4124 start
+4125                                        D11
+4126 A11
+141> frequency_monitor!{request,self(),stop}.                         sent msg to monitor to stop.
+4127 FS: stop.
+{request,<0.12087.53>,stop}
+4128                                        end
+4129 dtimeout
+4130 (D11)
+
+                                                                      no msg from frequency server?

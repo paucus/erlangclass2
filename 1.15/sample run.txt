@@ -1,0 +1,81 @@
+{ok,frequency}
+10> frequency:start().
+server_already_running
+11> frequency:clear().
+Client: done clearing messages.
+ok
+12> frequency:deallocate(10).
+Client: server took too long to deallocate my frequency.
+ok
+13> frequency:deallocate(10).
+{error,not_allocated}
+14> frequency:allocate().
+{error,not_allocated}
+15> frequency:allocate().
+{ok,10}
+16> frequency:allocate().
+{error,already_allocated}
+17> frequency:deallocate().
+** exception error: undefined function frequency:deallocate/0
+18> frequency:deallocate(10).
+Client: server took too long to deallocate my frequency.
+ok
+19> frequency:deallocate(10).
+{error,not_allocated}
+20> frequency:deallocate(10).
+{error,not_allocated}
+21> frequency:deallocate(10).
+{error,not_allocated}
+22> frequency:allocate().
+{error,not_allocated}
+23> frequency:clear().
+Client: Clearing a message from mailbox: {reply,{ok,11}}
+Client: done clearing messages.
+ok
+24> frequency:deallocate(11).
+ok
+25>
+
+problems: we can see that some messages were left in the mailbox due to timeouts.
+They need to be cleared when doing allocate and deallocate.
+Adding clear() to those functions... 
+
+
+25> c(frequency).
+{ok,frequency}
+26> flush().
+ok
+27> frequency:start().
+Created and registered server 'frequency' with Pid <0.103.0>
+Client: done clearing messages.
+Exiting Start()
+ok
+28> frequency:allocate().
+Client: server took too long to allocate a frequency.
+ok
+29> frequency:allocate().
+{ok,10}
+30> frequency:allocate().
+{error,already_allocated}
+31> frequency:deallocate(10).
+{error,already_allocated}
+32> frequency:deallocate(11).
+
+
+??? why 11?
+
+
+46> frequency:start().
+Created and registered server 'frequency' with Pid <0.122.0>
+ok
+47> frequency:show().
+{[10,11,12,13,14,15],[]}
+48> frequency:allocate().
+{ok,10}
+49> frequency:show().
+{[11,12,13,14,15],[{10,<0.120.0>}]}
+50> frequency:deallocate(10).
+ok
+51> frequency:show().
+{[10,11,12,13,14,15],[]}
+52>
