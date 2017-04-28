@@ -1,0 +1,122 @@
+Client hardwired to return frequency "99" (non-existant), to
+see how the error is caught (running one client only):
+(remember that the client launches a new client when it ends, so
+we get permanent execution)
+
+
+47> frequency:start_clients(1).
+1008 Launched 'frequency_monitor' (<0.3937.138>)
+1009 Launched 'frequency' (<0.3938.138>)
+1010 FServer up with {[10,11,12,13],[]}
+1011 C1
+________________________________________________________________________________
+1012 start
+clients_launched
+1013 A10
+1014 FS: catch unallocated_frequency_deallocation.
+1015 deallocation_error
+1016 error with (D99)
+1017 end
+1018 start
+1019 A11
+1020 FS: catch unallocated_frequency_deallocation.
+1021 deallocation_error
+1022 error with (D99)
+1023 end
+1024 start
+1025 A12
+1026 FS: catch unallocated_frequency_deallocation.
+1027 deallocation_error
+1028 error with (D99)
+1029 end
+1030 start
+1031 A13
+1032 FS: catch unallocated_frequency_deallocation.
+1033 deallocation_error
+1034 error with (D99)
+1035 end
+1036 start
+1037 no_frequency
+1038 end
+1039 start
+1040 no_frequency
+1041 end
+1042 start
+1043 no_frequency
+1044 end
+1045 start
+1046 no_frequency
+1047 end
+1048 start
+1049 no_frequency
+1050 end
+1051 start
+1052 no_frequency
+1053 X:Server <0.3938.138> died.
+1054 end
+48>
+48>
+48>
+48>
+48>
+48>
+48>
+48>
+48>
+48>
+48>
+48>
+
+Normal functioning of the client, returning the frequency assigned to it.
+Killing the frequency server towards the end, to see it restored by the monitor:
+
+48>
+48>
+48> c(frequency,[debug_info]).
+{ok,frequency}
+49> frequency:start_clients(1).
+1055 Launched 'frequency_monitor' (<0.23977.138>)
+1056 Launched 'frequency' (<0.23978.138>)
+1057 FServer up with {[10,11,12,13],[]}
+1058 C1
+________________________________________________________________________________
+1059 start
+clients_launched
+1060 A10
+1061 D10
+1062 end
+1063 start
+1064 A10
+1065 D10
+1066 end
+1067 start
+1068 A10
+1069 D10
+1070 end
+1071 start
+1072 A10
+1073 D10
+1074 end
+1075 start
+1076 A10
+1077 D10
+1078 end
+1079 start
+1080 A10
+1081 Monitor: FS died.----------------------------------------------
+1082 Launched 'frequency' (<0.30737.138>)
+1083 FServer up with {[10,11,12,13],[]}
+1084 dealloc: got EXIT.
+1085 FS: catch unallocated_frequency_deallocation.
+1086 atimeout
+1087 error with (D10)
+1088 end
+1089 start
+1090 A10
+1091 D10
+1092 end
+1093 start
+1094 A10
+1095 D10
+1096 end
+50>
