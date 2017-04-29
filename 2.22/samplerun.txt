@@ -1,0 +1,61 @@
+Eshell V8.3  (abort with ^G)
+1> c(frequency).
+{ok,frequency}
+2> frequency:start().
+This is the OLD code
+true
+3> frequency:allocate().
+This is the OLD code
+{ok,10}
+4> frequency:allocate().
+This is the OLD code
+{ok,11}
+5> frequency:allocate().
+This is the OLD code
+{ok,12}
+6> frequency:allocate().
+This is the OLD code
+{ok,13}
+7>
+7> frequency:allocate().
+This is the OLD code
+{ok,14}
+8> frequency:allocate().
+This is the OLD code
+{ok,15}
+9> frequency:allocate().
+This is the OLD code
+{error,no_frequency}
+
+ok, no more frequencies left... let's do a code upgrade so we
+have methods for injecting new frequencies, and try again:
+
+
+10> frequency!{request, Pid, upgrade_code}.
+* 1: variable 'Pid' is unbound
+11> frequency!{request, self(), upgrade_code}.
+{request,<0.64.0>,upgrade_code}
+new/frequency.erl:80: Warning: function inject/1 is unused          (forgot to add to -export())
+This is the NEW code
+12> frequency!{request, self(), upgrade_code}.
+{request,<0.64.0>,upgrade_code}
+This is the NEW code
+13> frequency:in
+init/0    inject/1
+13> frequency:inject([16,17,18]).
+This is the NEW code
+upgraded_code
+14> frequency:allocate().
+This is the NEW code
+upgraded_code
+15> frequency:allocate().
+This is the NEW code
+injected
+16> flush().
+Shell got {reply,{ok,16}}
+Shell got {reply,{ok,17}}
+ok
+17> frequency:allocate().
+This is the NEW code
+{ok,18}
+18>
