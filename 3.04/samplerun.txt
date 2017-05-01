@@ -1,4 +1,9 @@
-a normal run:
+a normal run. Notice:
+* if no more frequencies left in one server, the other server is called.
+* if a FS dies, it is restarted. It takes down its clients.
+* round-robin scheduling
+* balancer is also a monitor, restarts failed frequency servers
+* frequency servers linked to clients while they have a frequency assigned.
 
 2> frequency:test().
 FS: 'fs2' allocated {ok,20} ({[21,22,23,24,25],[{20,<0.64.0>}]}).
@@ -136,3 +141,296 @@ FS: 'fs2' stopping.
 Shell got {reply,balancer_stopped}
 ok
 169>
+
+
+another run, creating 100 clients:
+20> frequency:test_many_clients(0).
+FS: 'fs2' allocated {ok,20}.
+FS: 'fs1' allocated {ok,10}.
+inited_clients
+FS: 'fs2' allocated {ok,21}.
+FS: 'fs1' allocated {ok,11}.
+FS: 'fs2' allocated {ok,22}.
+FS: 'fs1' allocated {ok,12}.
+FS: 'fs1' allocated {ok,13}.
+FS: 'fs2' allocated {ok,23}.
+FS: 'fs1' allocated {ok,14}.
+FS: 'fs1' allocated {ok,15}.
+FS: 'fs2' allocated {ok,24}.
+FS: 'fs1' allocated {error,no_frequency}.
+FS: 'fs1' allocated {error,no_frequency}.
+FS: 'fs2' allocated {ok,25}.
+FS: 'fs1' allocated {error,no_frequency}.
+FS: 'fs1' allocated {error,no_frequency}.
+FS: 'fs2' allocated {error,no_frequency}.
+FS: 'fs1' allocated {error,no_frequency}.
+FS: 'fs1' allocated {error,no_frequency}.
+FS: 'fs2' allocated {error,no_frequency}.
+FS: 'fs1' allocated {error,no_frequency}.
+FS: 'fs1' allocated {error,no_frequency}.
+FS: 'fs1' allocated {error,no_frequency}.
+FS: 'fs2' allocated {error,no_frequency}.
+FS: 'fs1' allocated {error,no_frequency}.
+FS: 'fs1' allocated {error,no_frequency}.
+FS: 'fs1' allocated {error,no_frequency}.
+FS: 'fs1' allocated {error,no_frequency}.
+FS: 'fs2' allocated {error,no_frequency}.
+FS: 'fs1' allocated {error,no_frequency}.
+FS: 'fs1' allocated {error,no_frequency}.
+FS: 'fs2' allocated {error,no_frequency}.
+FS: 'fs1' allocated {error,no_frequency}.
+FS: 'fs2' allocated {error,no_frequency}.
+FS: 'fs1' allocated {error,no_frequency}.
+FS: 'fs1' allocated {error,no_frequency}.
+FS: 'fs1' allocated {error,no_frequency}.
+FS: 'fs1' allocated {error,no_frequency}.
+FS: 'fs1' allocated {error,no_frequency}.
+FS: 'fs2' allocated {error,no_frequency}.
+FS: 'fs1' allocated {error,no_frequency}.
+FS: 'fs2' allocated {error,no_frequency}.
+FS: 'fs1' allocated {error,no_frequency}.
+FS: 'fs1' allocated {error,no_frequency}.
+FS: 'fs2' allocated {error,no_frequency}.
+FS: 'fs1' allocated {error,no_frequency}.
+FS: 'fs2' allocated {error,no_frequency}.
+FS: 'fs1' allocated {error,no_frequency}.
+FS: 'fs2' allocated {error,no_frequency}.
+FS: 'fs1' allocated {error,no_frequency}.
+FS: 'fs1' allocated {error,no_frequency}.
+FS: 'fs2' allocated {error,no_frequency}.
+FS: 'fs1' allocated {error,no_frequency}.
+FS: 'fs1' allocated {error,no_frequency}.
+FS: 'fs1' allocated {error,no_frequency}.
+FS: 'fs2' allocated {error,no_frequency}.
+FS: 'fs1' allocated {error,no_frequency}.
+FS: 'fs1' allocated {error,no_frequency}.
+FS: 'fs2' allocated {error,no_frequency}.
+FS: 'fs1' allocated {error,no_frequency}.
+FS: 'fs1' allocated {error,no_frequency}.
+FS: 'fs2' allocated {error,no_frequency}.
+FS: 'fs1' allocated {error,no_frequency}.
+FS: 'fs1' allocated {error,no_frequency}.
+FS: 'fs1' allocated {error,no_frequency}.
+FS: 'fs2' allocated {error,no_frequency}.
+FS: 'fs1' allocated {error,no_frequency}.
+FS: 'fs1' allocated {error,no_frequency}.
+FS: 'fs2' allocated {error,no_frequency}.
+FS: 'fs1' allocated {error,no_frequency}.
+FS: 'fs1' allocated {error,no_frequency}.
+FS: 'fs1' allocated {error,no_frequency}.
+FS: 'fs1' allocated {error,no_frequency}.
+FS: 'fs1' deallocated 10 .
+FS: 'fs1' deallocated 11 .
+FS: 'fs1' deallocated 12 .
+FS: 'fs1' deallocated 13 .
+FS: 'fs1' deallocated 14 .
+FS: 'fs1' deallocated 15 .
+FS: 'fs2' allocated {error,no_frequency}.
+FS: 'fs2' allocated {error,no_frequency}.
+FS: 'fs2' allocated {error,no_frequency}.
+FS: 'fs2' allocated {error,no_frequency}.
+FS: 'fs2' allocated {error,no_frequency}.
+FS: 'fs2' allocated {error,no_frequency}.
+FS: 'fs1' allocated {ok,15}.
+FS: 'fs1' deallocated 15 .
+FS: 'fs2' allocated {error,no_frequency}.
+FS: 'fs2' allocated {error,no_frequency}.
+FS: 'fs2' allocated {error,no_frequency}.
+FS: 'fs2' allocated {error,no_frequency}.
+FS: 'fs2' allocated {error,no_frequency}.
+FS: 'fs2' allocated {error,no_frequency}.
+FS: 'fs2' allocated {error,no_frequency}.
+FS: 'fs2' allocated {error,no_frequency}.
+FS: 'fs2' allocated {error,no_frequency}.
+FS: 'fs2' allocated {error,no_frequency}.
+FS: 'fs2' allocated {error,no_frequency}.
+FS: 'fs2' allocated {error,no_frequency}.
+FS: 'fs2' allocated {error,no_frequency}.
+FS: 'fs2' allocated {error,no_frequency}.
+FS: 'fs2' allocated {error,no_frequency}.
+FS: 'fs2' allocated {error,no_frequency}.
+FS: 'fs2' allocated {error,no_frequency}.
+FS: 'fs2' allocated {error,no_frequency}.
+FS: 'fs2' allocated {error,no_frequency}.
+FS: 'fs2' allocated {error,no_frequency}.
+FS: 'fs2' allocated {error,no_frequency}.
+FS: 'fs2' deallocated 20 .
+FS: 'fs2' deallocated 21 .
+FS: 'fs2' deallocated 22 .
+FS: 'fs2' deallocated 23 .
+FS: 'fs2' deallocated 24 .
+FS: 'fs2' deallocated 25 .
+FS: 'fs2' allocated {ok,25}.
+FS: 'fs2' deallocated 25 .
+FS: 'fs2' allocated {ok,25}.
+FS: 'fs2' deallocated 25 .
+FS: 'fs1' allocated {ok,15}.
+FS: 'fs1' deallocated 15 .
+FS: 'fs2' allocated {ok,25}.
+FS: 'fs2' deallocated 25 .
+FS: 'fs1' allocated {ok,15}.
+FS: 'fs1' deallocated 15 .
+FS: 'fs2' allocated {ok,25}.
+FS: 'fs1' allocated {ok,15}.
+FS: 'fs2' deallocated 25 .
+FS: 'fs1' deallocated 15 .
+FS: 'fs1' allocated {ok,15}.
+FS: 'fs2' allocated {ok,25}.
+FS: 'fs1' deallocated 15 .
+FS: 'fs2' deallocated 25 .
+FS: 'fs2' allocated {ok,25}.
+FS: 'fs2' deallocated 25 .
+FS: 'fs1' allocated {ok,15}.
+FS: 'fs1' deallocated 15 .
+FS: 'fs2' allocated {ok,25}.
+FS: 'fs2' deallocated 25 .
+FS: 'fs1' allocated {ok,15}.
+FS: 'fs2' allocated {ok,25}.
+FS: 'fs1' allocated {ok,14}.
+FS: 'fs2' deallocated 25 .
+FS: 'fs1' deallocated 15 .
+FS: 'fs1' deallocated 14 .
+FS: 'fs2' allocated {ok,25}.
+FS: 'fs2' deallocated 25 .
+FS: 'fs1' allocated {ok,14}.
+FS: 'fs1' deallocated 14 .
+FS: 'fs2' allocated {ok,25}.
+FS: 'fs1' allocated {ok,14}.
+FS: 'fs2' deallocated 25 .
+FS: 'fs1' deallocated 14 .
+FS: 'fs2' allocated {ok,25}.
+FS: 'fs2' deallocated 25 .
+FS: 'fs1' allocated {ok,14}.
+FS: 'fs1' deallocated 14 .
+FS: 'fs2' allocated {ok,25}.
+FS: 'fs2' deallocated 25 .
+FS: 'fs1' allocated {ok,14}.
+FS: 'fs1' deallocated 14 .
+FS: 'fs2' allocated {ok,25}.
+FS: 'fs2' deallocated 25 .
+FS: 'fs2' allocated {ok,25}.
+FS: 'fs1' allocated {ok,14}.
+FS: 'fs2' deallocated 25 .
+FS: 'fs1' deallocated 14 .
+FS: 'fs1' allocated {ok,14}.
+FS: 'fs1' deallocated 14 .
+FS: 'fs1' allocated {ok,14}.
+FS: 'fs2' allocated {ok,25}.
+FS: 'fs1' deallocated 14 .
+FS: 'fs2' allocated {ok,24}.
+FS: 'fs2' deallocated 25 .
+FS: 'fs2' deallocated 24 .
+FS: 'fs1' allocated {ok,14}.
+FS: 'fs2' allocated {ok,24}.
+FS: 'fs1' deallocated 14 .
+FS: 'fs2' deallocated 24 .
+FS: 'fs1' allocated {ok,14}.
+FS: 'fs2' allocated {ok,24}.
+FS: 'fs1' allocated {ok,15}.
+FS: 'fs2' allocated {ok,25}.
+FS: 'fs1' deallocated 14 .
+FS: 'fs2' deallocated 24 .
+FS: 'fs1' deallocated 15 .
+FS: 'fs2' deallocated 25 .
+FS: 'fs1' allocated {ok,15}.
+FS: 'fs1' deallocated 15 .
+FS: 'fs2' allocated {ok,25}.
+FS: 'fs2' deallocated 25 .
+FS: 'fs2' allocated {ok,25}.
+FS: 'fs1' allocated {ok,15}.
+FS: 'fs2' deallocated 25 .
+FS: 'fs1' deallocated 15 .
+FS: 'fs1' allocated {ok,15}.
+FS: 'fs2' allocated {ok,25}.
+FS: 'fs1' deallocated 15 .
+FS: 'fs2' deallocated 25 .
+FS: 'fs1' allocated {ok,15}.
+FS: 'fs1' deallocated 15 .
+FS: 'fs2' allocated {ok,25}.
+FS: 'fs1' allocated {ok,15}.
+FS: 'fs2' deallocated 25 .
+FS: 'fs1' deallocated 15 .
+FS: 'fs2' allocated {ok,25}.
+FS: 'fs2' deallocated 25 .
+FS: 'fs1' allocated {ok,15}.
+FS: 'fs1' deallocated 15 .
+FS: 'fs2' allocated {ok,25}.
+FS: 'fs2' deallocated 25 .
+FS: 'fs1' allocated {ok,15}.
+FS: 'fs1' deallocated 15 .
+FS: 'fs2' allocated {ok,25}.
+FS: 'fs2' deallocated 25 .
+FS: 'fs1' allocated {ok,15}.
+FS: 'fs1' deallocated 15 .
+FS: 'fs2' allocated {ok,25}.
+FS: 'fs2' deallocated 25 .
+FS: 'fs1' allocated {ok,15}.
+FS: 'fs1' deallocated 15 .
+FS: 'fs2' allocated {ok,25}.
+FS: 'fs1' allocated {ok,15}.
+FS: 'fs2' deallocated 25 .
+FS: 'fs1' deallocated 15 .
+FS: 'fs2' allocated {ok,25}.
+FS: 'fs1' allocated {ok,15}.
+FS: 'fs2' deallocated 25 .
+FS: 'fs1' deallocated 15 .
+FS: 'fs2' allocated {ok,25}.
+FS: 'fs2' deallocated 25 .
+FS: 'fs1' allocated {ok,15}.
+FS: 'fs2' allocated {ok,25}.
+FS: 'fs1' allocated {ok,14}.
+FS: 'fs2' allocated {ok,24}.
+FS: 'fs1' allocated {ok,13}.
+FS: 'fs2' deallocated 25 .
+FS: 'fs1' deallocated 15 .
+FS: 'fs2' deallocated 24 .
+FS: 'fs1' deallocated 14 .
+FS: 'fs1' deallocated 13 .
+FS: 'fs2' allocated {ok,24}.
+FS: 'fs2' deallocated 24 .
+FS: 'fs1' allocated {ok,13}.
+FS: 'fs1' deallocated 13 .
+FS: 'fs2' allocated {ok,24}.
+FS: 'fs2' deallocated 24 .
+FS: 'fs1' allocated {ok,13}.
+FS: 'fs1' deallocated 13 .
+FS: 'fs2' allocated {ok,24}.
+FS: 'fs2' deallocated 24 .
+FS: 'fs1' allocated {ok,13}.
+FS: 'fs1' deallocated 13 .
+FS: 'fs2' allocated {ok,24}.
+FS: 'fs2' deallocated 24 .
+FS: 'fs1' allocated {ok,13}.
+FS: 'fs1' deallocated 13 .
+FS: 'fs2' allocated {ok,24}.
+FS: 'fs2' deallocated 24 .
+FS: 'fs1' allocated {ok,13}.
+FS: 'fs1' deallocated 13 .
+FS: 'fs2' allocated {ok,24}.
+FS: 'fs2' deallocated 24 .
+FS: 'fs1' allocated {ok,13}.
+FS: 'fs1' deallocated 13 .
+FS: 'fs2' allocated {ok,24}.
+FS: 'fs1' allocated {ok,13}.
+FS: 'fs2' deallocated 24 .
+FS: 'fs1' deallocated 13 .
+FS: 'fs2' allocated {ok,24}.
+FS: 'fs1' allocated {ok,13}.
+FS: 'fs2' deallocated 24 .
+FS: 'fs1' deallocated 13 .
+FS: 'fs2' allocated {ok,24}.
+FS: 'fs2' deallocated 24 .
+FS: 'fs1' allocated {ok,13}.
+FS: 'fs1' deallocated 13 .
+FS: 'fs2' allocated {ok,24}.
+FS: 'fs2' deallocated 24 .
+FS: 'fs1' allocated {ok,13}.
+FS: 'fs1' deallocated 13 .
+FS: 'fs2' allocated {ok,24}.
+FS: 'fs2' deallocated 24 .
+FS: 'fs1' allocated {ok,13}.
+FS: 'fs1' deallocated 13 .
+FS: 'fs2' allocated {ok,24}.
+FS: 'fs2' deallocated 24 .
+FS: 'fs1' allocated {ok,13}.
+FS: 'fs1' deallocated 13 .

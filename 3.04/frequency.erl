@@ -9,14 +9,13 @@
 %% assignment 3.4
 %% Marcelo Ruiz Camauër
 
-%% implement replicated servers, keep count of free freqs in each, send
-%% to least loaded server.
+%% implement replicated servers, using round-robin scheduling.
 
 
 -module(frequency).
 -export([start/0,allocate/0,deallocate/1,stop/0]).
--export([init_balancer/0,init_freq_server/2]).  % Added
--export([inject/1,whois/1,whoami/0,test/0]).          % Added
+-export([init_balancer/0,init_freq_server/2]).          % Added
+-export([inject/1,whois/1,whoami/0,test/0,test_many_clients/1,client/0]).            % Added
 
 
 start() ->
@@ -36,17 +35,17 @@ init_balancer()->                               % Added
           io:format("launched fs2~n",[]);    
       _ -> true
     end,
-    process_flag(trap_exit, true),                                      % if a FS dies, get notified, don't just die.
+    process_flag(trap_exit, true),              % if a FS dies, get notified, don't just die.
     balancer_loop(1).
 
 
 init_freq_server(MyName,MyFrequencies) ->        % Added
     register(MyName,self()),  
-    Frequencies = {MyFrequencies, []},   % create {free, allocated} tuple
+    Frequencies = {MyFrequencies, []},          % create {free, allocated} tuple
     fs_loop(Frequencies).
 
 % Hard Coded, could have been a DETS table.
-get_frequencies1() -> [10,11,12,13,14,15].  % must correspond with server_handling_frequency()
+get_frequencies1() -> [10,11,12,13,14,15].      % must correspond with server_handling_frequency()
 get_frequencies2() -> [20,21,22,23,24,25].
 
 balancer_loop(Count) ->
@@ -73,17 +72,13 @@ balancer_loop(Count) ->
           io:format("Balancer: FS '~p' has died.~n",[Pid]),
           % now what? kill the whole system? restart that server? 
           % (it won't have clients)
-          
           init_balancer();
 
       {request, Pid, stop} ->      % stop all processes
           fs1 ! {request,self(),stop},   
           fs2 ! {request,self(),stop}, 
-
           Pid ! {reply, balancer_stopped}
   end.
-
-
 
 %% The Main Loop for Frequency Servers:
 fs_loop(Frequencies) ->
@@ -91,14 +86,17 @@ fs_loop(Frequencies) ->
       {request, Pid, allocate} ->
           link(Pid),    % if FS dies, take this client with it!
           {NewFrequencies, Reply} = allocate(Frequencies, Pid),
-          io:format("FS: '~p' allocated ~p (~p).~n",[whoami(),Reply,NewFrequencies]),
+          %io:format("FS: '~p' allocated ~p (~w).~n",[whoami(),Reply,NewFrequencies]),
+          io:format("FS: '~p' allocated ~p.~n",[whoami(),Reply]),
+
           Pid ! {reply, Reply},     
           fs_loop(NewFrequencies);     
 
       {request, Pid , {deallocate, Freq}} ->
           NewFrequencies = deallocate(Frequencies, Freq),
           Pid ! {reply, {ok,whoami()}},
-          io:format("FS: '~p' deallocated ~p (~p).~n",[whoami(),Freq,NewFrequencies]),
+          %io:format("FS: '~p' deallocated ~p (~w).~n",[whoami(),Freq,NewFrequencies]),
+          io:format("FS: '~p' deallocated ~p .~n",[whoami(),Freq]),
           unlink(Pid), % don't kill the client if I die, it does not have one of my frequencies
           fs_loop(NewFrequencies);
       
@@ -184,4 +182,28 @@ test()->
 
     %frequency:stop()
     done. 
+
+test_many_clients(100)->
+    inited_clients;
+test_many_clients(N)->
+    spawn(?MODULE,client,[]),
+   %timer:sleep(rand:uniform(100)),
+    test_many_clients(N+1).
+
+client()->
+    balancer ! {request,self(),allocate},
+    
+    receive
+        {reply,{ok,Freq}}               -> 
+            %timer:sleep(rand:uniform(100)),
+            balancer ! {request,self(),{deallocate,Freq}};
+            %timer:sleep(rand:uniform(100));
+        {reply,{error,no_frequency}}    -> 
+            timer:sleep(rand:uniform(100)),
+            client();
+        Other  ->      
+            io:format("got other msg: ~w~n",[Other]),
+            Other
+    end.
+
 
